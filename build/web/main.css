@@ -1,0 +1,50 @@
+ul{
+    list-style: none;
+    margin: 0%;
+    padding: 1.5%;
+    background-color: black;
+}
+
+li{
+    display: inline;
+    
+}
+li a{
+    display: inline;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover{
+    background-color: white;
+    color: black;
+}
+li a.sign{
+    text-align: right;
+    display: inline-block;
+    
+
+}
+li a.sign:hover{
+    background-color: white;
+    color:black;
+}
+div.Phone{
+    padding-block: 0%;
+    margin: 10%;
+   
+}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+    margin: 1%;
+  }
+  
+  /* Clear floats after image containers */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

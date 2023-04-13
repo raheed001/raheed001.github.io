@@ -1,0 +1,590 @@
+<%-- 
+    Document   : Buy
+    Created on : 8 Mar, 2023, 12:43:05 PM
+    Author     : RAHEE
+--%>
+
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>BUY MOBILE PHONES</title>
+        <link rel="stylesheet" href="home.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <link rel="stylesheet" href="slide.css">
+        <link rel="stylesheet" href="menu.css">
+        <link rel="stylesheet" href="ribbon.css">
+        <link rel="stylesheet" href="title.css">
+        <link rel="stylesheet" href="feedback.css">
+        <script src="jquery-3.6.1.js"></script>
+    </head>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#test").hide();
+            });
+        })
+    </script>
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+
+
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+    </style>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+    <body class="buy">
+
+        <section class="header">
+            <a href="index.html" class="logo" alt="Logo">
+                <img class="image" src="Logo.png" width="90px">
+            </a>
+            <div class="content">
+                <a href="Home.html">
+                    <h2>99Mobiles</h2>
+                    <h2>99Mobiles</h2>
+                </a>
+
+            </div>
+            <div>
+                <ul class="nav">
+                    <li> <a href="index.jsp">Home </a></li>
+                    <li> <a class="actives" href="Buy.jsp">Buy </a></li>
+                    <li> <a href="About.jsp">About </a></li>
+                    <li> <a href="contact.jsp">Contact </a></li>
+                    <li> <a href="CreateAccount.jsp">login </a></li>
+                    <li><a href="AdminLogin.jsp"> Admin Login</a></li>
+                    <li class="sym"><a href="Orderform.jsp"><i
+                                class="fas fa-shopping-cart"></i> </a></li>
+
+                </ul>
+            </div>
+        </section>
+        <nav id='menu'>
+            <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+            <ul>
+                <li><a href='index.jsp'>Home</a></li>
+                <li><a class='dropdown-arrow' href='http://'>Products</a>
+                    <ul class='sub-menus'>
+                        <li><a href='Buy.jsp'>Android</a></li>
+                        <li><a href='Buy.jsp'>IOS</a></li>
+                        <li><a href='Buy.jsp'>Laptops</a></li>
+                        <li><a href='Buy.jsp'>Others</a></li>
+                    </ul>
+                </li>
+                <li><a href='http://'>New Release</a></li>
+                <li><a class='dropdown-arrow' href='http://'>Services</a>
+                    <ul class='sub-menus'>
+                        <li><a href='http://'>Mobile Cover</a></li>
+                        <li><a href='http://'>Mobile Charger</a></li>
+                        <li><a href='http://'>Mobile Skins</a></li>
+                    </ul>
+                </li>
+                <li><a href='http://'>Contact Us</a></li>
+            </ul>
+        </nav>
+        <div>
+            <section id="butslide">
+                <div class="slideshow-container">
+
+                    <!-- Full-width images with number and caption text -->
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 3</div>
+                        <img src="iphoneslide.jpg" style="width:100%">
+                        <div class="text">Iphone 14</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 3</div>
+                        <img src="samsungslide2.png" style="width:100%">
+                        <div class="text">Samsung s22</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 3</div>
+                        <img src="xiomi12proslide2.jpg" style="width:100%">
+                        <div class="text">Xiomi 12 pro</div>
+                    </div>
+
+                    <!-- Next and previous buttons -->
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+                <br>
+
+                <!-- The dots/circles -->
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </section>
+        </div>
+
+
+
+
+
+
+         <%
+    Connection conn = null;
+    PreparedStatement ps = null;
+  
+    ResultSet rs = null;
+    
+    try {
+      
+      Class.forName("oracle.jdbc.OracleDriver");
+      conn = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/RAHEEDpdb1", "rah_muz", "ra123");
+
+      
+      String sql = "SELECT * FROM PRODUCT";
+      ps=conn.prepareStatement(sql);
+      rs = ps.executeQuery(sql);
+  %>
+  <%while(rs.next()){%>
+
+ 
+ 
+
+       
+
+
+
+
+        <section class="buy">
+            <h2>Best Selling SmartPhone</h2>
+            <div class="proco">
+
+
+
+
+ <div class="Product">
+                    <div class="box">
+                        <div class="ribbon"><span>LATEST</span>
+                        </div>
+                        <a
+                            href="https://">
+                            <div>
+
+                               
+                                 <img src="<%= rs.getString("IMAGESRC")%>" >
+                            </div>
+                        </a>
+                        <h4 class="Productname">
+                           <%out.println(rs.getString("NAME")); %>
+                        </h4>
+
+
+                        <div class="tooltip">
+                            <div class="ratings">
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li><i class="fas fa-star-half-alt"></i></li>
+
+                            </div>
+                            <div>
+                                <span class="tooltiptext">4.5 out of 5 </span>
+                            </div>
+                        </div>
+
+                        <div> &nbsp;</div>
+                        <div class="price">
+                            <div><sup>₹</sup><%out.println(rs.getString("PRICE")); %></div> <br> <div><s class="striked"> <%out.println(rs.getString("MRP")); %></s> </div> <br><div><a>(<%out.println(rs.getString("SAVINGS")); %>)</a> </div>
+                        </div>
+                    </div>
+                </div>
+                        <%}%>
+ <%
+
+      
+    } catch (SQLException e) {
+     out.print(e);
+    } catch (ClassNotFoundException e) {
+      out.print(e);
+    } finally {
+      
+      if (rs != null) {
+        try { rs.close(); } catch (SQLException e) {}
+      }
+      if (ps != null) {
+        try { ps.close(); } catch (SQLException e) {}
+      }
+      if (conn != null) {
+        try { conn.close(); } catch (SQLException e) {}
+      }
+    }
+  %>
+
+</div>
+  
+
+
+
+
+                <!--             jsp-->
+<!--                <div class="Product">
+                    <div class="box">
+                        <div class="ribbon"><span>LATEST</span>
+                        </div>
+                        <a
+                            href="https://">
+                            <div>
+
+                                <img src="https://images-eu.ssl-images-amazon.com/images/I/31VjlrbE3bL._AC_SX184_.jpg">
+                            </div>
+                        </a>
+                        <h4 class="Productname">
+                            Apple iPhone 14 128GB Blue(15.40 cm (6.1-inch) Super Retina XDR display)
+                        </h4>
+
+
+                        <div class="tooltip">
+                            <div class="ratings">
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li><i class="fas fa-star-half-alt"></i></li>
+
+                            </div>
+                            <div>
+                                <span class="tooltiptext">4.5 out of 5 </span>
+                            </div>
+                        </div>
+
+                        <div> &nbsp;</div>
+                        <div class="price">
+                            <sup>₹</sup>72,000 <s class="striked"> 79999</s> <a>(10% off)</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="Product">
+                    <a
+                        href="https://">
+                        <div>
+                            <img src="https://rukminim1.flixcart.com/image/416/416/ksnjp8w0/mobile/b/t/k/galaxy-z-fold3-5g-sm-f926bzkdinu-samsung-original-imag662a7zgxn2fv.jpeg?q=70"
+                                 height="370px">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        Samsung Galaxy Z Fold3 5G (Phantom Black, 12GB RAM, 256GB Storage)
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li><i class="fas fa-star-half-alt"></i></li>
+
+                        </div>
+                        <div>
+                            <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>1,19,999 <s class="striked">1,71,999</s> <a>(30% off)</a>
+                    </div>
+
+                </div>
+
+                <div class="Product">
+                    <a
+                        href="https://">
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/81xvGbBFNhL._AC_UL320_.jpg">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        Samsung Galaxy M33 5G (Deep Ocean Blue, 6GB, 128GB Storage)
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li><i class="fas fa-star-half-alt"></i></li>
+
+                        </div>
+                        <div>
+                            <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>15,499 <s class="striked"> 24999</s> <a>(38% off)</a>
+                    </div>
+
+                     More Product 
+
+
+
+                </div>
+
+
+
+
+                <div class="Product">
+                    <a
+                        href="https://">
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/81phFG96VXL._AC_UL320_.jpg" height="350px">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        realme Narzo 50 Pro 5G (Hyper Blue 6GB RAM+128GB Storage) Dimensity 920 5G Processor |90Hz Super
+                        AMOLED Display
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li><i class="fas fa-star-half-alt"></i></li>
+
+                        </div>
+                        <div>
+                            <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>17,999 <s class="striked"> 25999</s> <a>(31% off)</a>
+                    </div>
+
+
+
+                </div>
+
+                <div class="Product">
+                    <a
+                        href="https://">
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/71QQZr2pNSL._AC_UL320_.jpg" height="360px">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        Google Pixel 6 5G (Sorta Seafoam, 8GB RAM, 128GB Storage)
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li><i class="fas fa-star-half-alt"></i></li>
+
+                        </div>
+                        <div>
+                            <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>43,900 <s class="striked"> 99,999</s> <a>(56% off)</a>
+                    </div>
+
+                </div>
+
+                <div class="Product">
+                    <a
+                        href="https://">
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/71xMba-NW-L._SX679_.jpg" height="290px">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        Xiaomi 12 Pro | 5G (Couture Blue, 12GB RAM, 256GB Storage)| Snapdragon 8 Gen 1 | 50+50+50MP
+                        Flagship
+                        Cameras (OIS) | 10bit 2K+ Curved AMOLED Display | Sound by Harman Kardon
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li><i class="fas fa-star-half-alt"></i></li>
+
+                        </div>
+                        <div>
+                            <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>58,999 <s class="striked"> 84,999</s> <a>(31% off)</a>
+                    </div>
+
+                </div>
+
+                <div class="Product">
+                    <a
+                        href="">
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/71XM12oE-3L._AC_UL320_.jpg" height="370">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        OnePlus 10R 5G Prime Edition (Prime Blue, 8GB RAM, 128GB Storage, 80W SuperVOOC)
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li> <i class="fas fa-star"></i> </li>
+                            <li><i class="fas fa-star-half-alt"></i></li>
+
+                        </div>
+                        <div>
+                            <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>32,999 <s class="striked"> 38,999</s> <a>(15% off)</a>
+                    </div>
+
+                </div>
+                 
+                <div class="Product">
+                    <a
+                        href="https://www.amazon.in/Redmi-Storage-Battery-Finger-Booster/dp/B09XB7DPW1/ref=sr_1_5?qid=1665515183&refinements=p_89%3ANokia%7CRedmi&rnid=3837712031&s=electronics&sr=1-5">
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/71WC+Qz1KgL._AC_UL320_.jpg" height="360px">
+                        </div>
+                    </a>
+                    <h4 class="Productname">
+                        Redmi 10A (Sea Blue, 4GB RAM, 64GB Storage) | 2 Ghz Octa Core Helio G25 | 5000 mAh Battery | Finger
+                        Print Sensor | Upto 5GB RAM with RAM Booster
+                    </h4>
+                    <div class="tooltip">
+                        <div class="ratings">
+                        <li> <i class="fas fa-star"></i> </li>
+                        <li> <i class="fas fa-star"></i> </li>
+                        <li> <i class="fas fa-star"></i> </li>
+                        <li><i class="fas fa-star-half-alt"></i></li>
+    
+                        </div>
+                        <div>
+                        <span class="tooltiptext">4.5 out of 5 </span>
+                        </div>
+                    </div>
+                    <div> &nbsp;</div>
+                    <div class="price">
+                        <sup>₹</sup>8,599 <s class="striked"> 11,999</s> <a>(28% off)</a>
+                    </div>
+    
+                </div> 
+                <div class="Product">
+                    <div class="box">
+                        <div class="ribbon"><span>LATEST</span>
+
+                        </div>
+                        <img src="https://m.media-amazon.com/images/I/71WC+Qz1KgL._AC_UL320_.jpg" height="360px">
+                        <h4 class="Productname">
+                            Redmi 10A (Sea Blue, 4GB RAM, 64GB Storage) | 2 Ghz Octa Core Helio G25 | 5000 mAh Battery |
+                            Finger Print Sensor | Upto 5GB RAM with RAM Booster
+                        </h4>
+                        <div class="tooltip">
+                            <div class="ratings">
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li> <i class="fas fa-star"></i> </li>
+                                <li><i class="fas fa-star-half-alt"></i></li>
+
+                            </div>
+                            <div>
+                                <span class="tooltiptext">4.5 out of 5 </span>
+                            </div>
+                        </div>
+                        <div> &nbsp;</div>
+                        <div class="price">
+                            <sup>₹</sup>8,599 <s class="striked"> 11,999</s> <a>(28% off)</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>-->
+
+
+
+
+
+
+
+        </section>
+
+
+    </body>
+
+</html>

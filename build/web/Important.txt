@@ -1,0 +1,253 @@
+for (;;) {
+            System.out.println("Menu");
+            System.out.println(" 1.Add Employee \n 2.Display Employees \n 3.Update Employee Details \n 4.Search Employee \n 5.Delete Employee \n 6.Exit");
+            System.out.println("Enter Your Choice");
+            ch = scan.nextInt();
+            switch (ch) {
+                case 1://Adding Employee
+
+                    System.out.println("Enter Employee ID");
+                    id = scan.next();
+
+                    System.out.println("Enter Employee First Name ");
+                    First_name = scan.next();
+
+                    System.out.println("Enter Employee Last Name");
+                    Last_name = scan.next();
+
+                    System.out.println("Enter Employee Designation");
+                    Designation = scan.next();
+
+                    System.out.println("Enter Employee Address");
+                    Address = scan.next();
+
+                    System.out.println("Enter Employee Department");
+                    Department = scan.next();
+
+                    System.out.println("Enter Employee Contact Number");
+                    Contact_number = scan.nextBigInteger();
+
+                    System.out.println("Enter Employees Job Type \n 1.Full Time\n 2.Contract Based \n 3.Daily Waged \n Press 1 For Full Time \n Press 2 For Contract Based \n Press 3 For Daily Waged");
+
+                    Job_Type = scan.nextInt();
+                    if (Job_Type == 1) {
+                        System.out.println("Enter Employee Basic Pay");
+                        basicpay = scan.nextDouble();
+                        FullTime f = new FullTime(id, First_name, Last_name, Designation, Address, Contact_number, Department, basicpay);
+                        e.add(f);
+
+                    }
+
+                    if (Job_Type == 3) {
+                        System.out.println("Enter Days Worked");
+                        daysworked = scan.nextInt();
+
+                        DailyWaged d = new DailyWaged(daysworked, id, First_name, Last_name, Designation, Address, Contact_number, Department);
+                        e.add(d);
+                    }
+
+                    if (Job_Type == 2) {
+                        System.out.println("Enter Employee Salary");
+                        salary = scan.nextDouble();
+                        ContractBased c = new ContractBased(id, First_name, Last_name, Designation, Address, Contact_number, Department, salary);
+                        e.add(c);
+                    }
+                    if (Job_Type > 3) {
+                        System.out.println("Enter Valid Number");
+                    }
+
+                    break;
+
+                case 2://Display
+                    System.out.println("");
+
+                    Employee e1;
+                    FullTime f1;
+                    DailyWaged d1;
+                    ContractBased c1;
+
+                    Iterator i = e.iterator();
+                    while (i.hasNext()) {
+
+                        e1 = (Employee) i.next();
+                        if (e1.toString().contains("FullTime")) {
+                            f1 = (FullTime) e1;
+                            System.out.println("FullTime");
+                            System.out.println(" ID:" + f1.getId() + "  First Name: " + f1.getFirst_name().toUpperCase() + "  Last Name: " + f1.getLast_name().toUpperCase() + "  Desgination: " + f1.getDesignation().toUpperCase() + "  Address: " + f1.getAddress().toUpperCase() + "  Contact Number: " + f1.getContact_number() + "  Department: " + f1.getDepartment().toUpperCase() + "  Salary " + f1.calc_salary());
+                            System.out.println();
+                        } else if (e1.toString().contains("DailyWaged")) {
+                            d1 = (DailyWaged) e1;
+                            System.out.println("DailyWaged");
+                            System.out.println(" ID:" + d1.getId() + "  First Name: " + d1.getFirst_name().toUpperCase() + "  Last Name: " + d1.getLast_name().toUpperCase() + "  Desgination: " + d1.getDesignation().toUpperCase() + "  Address: " + d1.getAddress().toUpperCase() + "  Contact Number: " + d1.getContact_number() + "  Department: " + d1.getDepartment().toUpperCase() + "  Salary " + d1.calc_salary());
+                            System.out.println();
+                        } else if (e1.toString().contains("ContractBased")) {
+                            c1 = (ContractBased) e1;
+                            System.out.println("ContractBased");
+                            System.out.println(" ID:" + c1.getId() + "  First Name: " + c1.getFirst_name().toUpperCase() + "  Last Name: " + c1.getLast_name().toUpperCase() + "  Desgination: " + c1.getDesignation().toUpperCase() + "  Address: " + c1.getAddress().toUpperCase() + "  Contact Number: " + c1.getContact_number() + "  Department: " + c1.getDepartment().toUpperCase() + "  Salary " + c1.calc_salary());
+                            System.out.println();
+                        }
+
+                    }
+                    break;
+                case 3://Update
+                    FullTime f3;
+                    DailyWaged d3;
+                    ContractBased c3;
+                    Employee e5 = new Employee();
+                    System.out.println("Enter Employe ID to Update");
+                    String empid = scan.next();
+                    ListIterator<Employee> l = e.listIterator();
+
+                    while (l.hasNext()) {
+                        Employee ee = l.next();
+
+                        if (ee.getId().equals(empid)) {
+
+                            if (ee.toString().contains("FullTime")) {
+                                f3 = (FullTime) ee;
+
+                                int choice;
+                                System.out.println("Select the details you want to change");
+
+                                System.out.println("1.Employee Address \n2.Employee Department \n3.Contact Number");
+                                choice = scan.nextInt();
+
+                                if (choice == 1) {
+                                    System.out.println("Enter Employee Address");
+                                    Address = scan.next();
+                                    f3.setAddress(Address);
+//                                    FullTime f = new FullTime(ee.getId(), ee.getFirst_name(), ee.getLast_name(), ee.getDesignation(), Address, ee.getContact_number(), ee.getDepartment(), f3.calc_salary());
+
+                                    l.set(f3);
+                                }
+                                if (choice == 2) {
+                                    System.out.println("Enter Employee Department");
+                                    Department = scan.next();
+                                    
+                                    Department dep;
+                                   
+                                    dep.setDep_name(Department);
+                                    f3.setDepartment(Department);
+//                                    FullTime f = new FullTime(ee.getId(), ee.getFirst_name(), ee.getLast_name(), ee.getDesignation(), ee.getAddress(), ee.getContact_number(), Department, f3.calc_salary());
+
+                                    l.set(f3);
+                                }
+                                if (choice == 3) {
+                                    System.out.println("Enter Employee Contact Number");
+                                    Contact_number = scan.nextBigInteger();
+                                    f3.setContact_number(Contact_number);
+//                                    FullTime f = new FullTime(ee.getId(), ee.getFirst_name(), ee.getLast_name(), ee.getDesignation(), ee.getAddress(), Contact_number, ee.getDepartment(), f3.calc_salary());
+
+                                    l.set(f3);
+                                }
+
+                            }
+
+                            if (ee.toString().contains("DailyWaged")) {
+                                d3 = (DailyWaged) ee;
+                                int c;
+                                System.out.println("Select the details you want to change");
+
+                                System.out.println("1.Employee Address \n2.Employee Department \n3.Contact Number");
+                                c = scan.nextInt();
+                                e5.update(c);
+                                System.out.println("Enter Days Worked");
+                                daysworked = scan.nextInt();
+
+//                                DailyWaged d = new DailyWaged(daysworked, ee.getId(), ee.getFirst_name(), ee.getLast_name(), ee.getDesignation(), ee.getAddress(), ee.getContact_number(), ee.getDepartment());
+                                l.set(e5);
+                               
+                            }
+
+                            if (ee.toString().contains("ContractBased")) {
+                                int cc;
+                                 System.out.println("Select the details you want to change");
+
+                                System.out.println("1.Employee Address \n2.Employee Department \n3.Contact Number");
+                                cc= scan.nextInt();
+                                c3 = (ContractBased) ee;
+                                e5.update(cc);
+
+//                                ContractBased c = new ContractBased(ee.getId(), ee.getFirst_name(), ee.getLast_name(), ee.getDesignation(), ee.getAddress(), ee.getContact_number(), ee.getDepartment(), c3.calc_salary());
+                                l.set(e5);
+                            }
+                            if (!ee.toString().contains("ContractBased") || ee.toString().contains("DailyWaged") || ee.toString().contains("FullTime")) {
+                                System.out.println("Employee Not Found");
+                            }
+
+                        }
+                    }
+                    break;
+                case 4://Search
+                    String sid;
+                    FullTime f2;
+                    DailyWaged d2;
+                    ContractBased c2;
+                    Employee e2;
+                    boolean flag = false;
+                    
+                    System.out.println("Enter Employee ID To search");
+                    sid = scan.next();
+                    
+                    i = e.iterator();
+                    while (i.hasNext() && !flag) {
+
+                        e2 = (Employee) i.next();
+
+                        if (e2.getId().contains(sid)) {
+                            if (e2.toString().contains("FullTime")) {
+                                f2 = (FullTime) e2;
+                                System.out.println("FullTime");
+
+                                System.out.println("ID:" + f2.getId() + "  First Name: " + f2.getFirst_name().toUpperCase() + "  Last Name: " + f2.getLast_name().toUpperCase() + "  Desgination: " + f2.getDesignation().toUpperCase() + "  Address: " + f2.getAddress().toUpperCase() + "  Contact Number: " + f2.getContact_number() + "  Department: " + f2.getDepartment().toUpperCase() + "  Salary: " + f2.calc_salary());
+                                flag = true;
+                            } else if (e2.toString().contains("DailyWaged")) {
+                                d2 = (DailyWaged) e2;
+                                System.out.println("Daily Waged");
+                                System.out.println("ID:" + d2.getId() + "  First Name: " + d2.getFirst_name().toUpperCase() + "  Last Name: " + d2.getLast_name().toUpperCase() + "  Desgination: " + d2.getDesignation().toUpperCase() + "  Address: " + d2.getAddress().toUpperCase() + "  Contact Number: " + d2.getContact_number() + "  Department: " + d2.getDepartment().toUpperCase() + "  Salary: " + d2.calc_salary());
+
+                            } else if (e2.toString().contains("ContractBased")) {
+                                c2 = (ContractBased) e2;
+                                System.out.println("Contract Based");
+                                System.out.println("ID:" + c2.getId() + "  First Name: " + c2.getFirst_name().toUpperCase() + "  Last Name: " + c2.getLast_name().toUpperCase() + "  Desgination: " + c2.getDesignation().toUpperCase() + "  Address: " + c2.getAddress().toUpperCase() + "  Contact Number: " + c2.getContact_number() + "  Department: " + c2.getDepartment().toUpperCase() + "  Salary: " + c2.calc_salary());
+
+                            }
+
+                        } else if (!e2.getId().contains(sid)) {
+                            System.out.println("Employee Not Found");
+                        }
+
+                    }
+                    break;
+                case 5://Delete
+                    String delid;
+                    Employee e3;
+                     flag = false;
+                    System.out.println("Enter Employee ID To Delete");
+                    delid = scan.next();
+                    i = e.iterator();
+                    while (i.hasNext()) {
+
+                        e3 = (Employee) i.next();
+                        if (e3.getId().contains(delid)) {
+                            i.remove();
+
+                            flag = true;
+                        }
+                    }
+                    if (flag == true) {
+                        System.out.println("Employee Removed Successfully");
+                    } else if (flag == false) {
+                        System.out.println("Employee ID Not Found");
+                    }
+
+                    break;
+                case 6://Exit
+                    System.exit(0);
+                    System.out.println("Exited Successfully");
+                    break;
+
+            }
+        }
+    }
+}
