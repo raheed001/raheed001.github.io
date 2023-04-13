@@ -1,0 +1,3 @@
+url=jdbc:oracle:thin:@//localhost:1521/RAHEEDpdb1
+username=rah_muz
+password=ra123
